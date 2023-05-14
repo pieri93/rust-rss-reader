@@ -9,7 +9,7 @@ To use the RSS reader, simply run the program and enter the URL of the RSS feed 
 $ cargo run
 Enter RSS feed URL:
 ```
-The program will then retrieve and parse the RSS feed, and display its contents to the console.
+The program will then retrieve and parse the RSS feed, and write its contents to a file called `rss_output.txt` that is created or open.
 
 ## Dependencies
 
