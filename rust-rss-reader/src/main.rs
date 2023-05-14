@@ -5,7 +5,7 @@ use std::io;
 fn main() -> Result<(), Box<dyn Error>> {
     let mut url = String::new();
 
-    // Ask user's input
+    // Ask user's url as input
     println!("Enter RSS feed URL: ");
     io::stdin().read_line(&mut url)?;
 
@@ -27,6 +27,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!();
     }
 
-    println!("{}", url);
+    println!("End");
     Ok(())
 }
