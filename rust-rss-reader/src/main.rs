@@ -1,6 +1,8 @@
 use rss::Channel;
 use std::error::Error;
-use std::io;
+use std::fs::File;
+use std::io::{self, Write};
+use std::path::Path;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut url = String::new();
@@ -15,18 +17,23 @@ fn main() -> Result<(), Box<dyn Error>> {
     let body = resp.bytes()?;
     let channel = Channel::read_from(&body[..])?;
 
-    println!("Title: {}", channel.title());
-    println!("Link: {}", channel.link());
-    println!("Description: {}", channel.description());
+    // Create or open the output file
+    let file_path = Path::new("rss_output.txt");
+    let mut file = File::create(file_path)?;
 
+    // Redirect all prints to the output file
     for item in channel.items() {
-        println!("Title: {}", item.title().unwrap_or_default());
-        println!("Link: {}", item.link().unwrap_or_default());
-        println!("Description: {}", item.description().unwrap_or_default());
-        println!("Published: {}", item.pub_date().unwrap_or_default());
-        println!();
+        writeln!(file, "Title: {}", item.title().unwrap_or_default());
+        writeln!(file, "Link: {}", item.link().unwrap_or_default());
+        writeln!(
+            file,
+            "Description: {}",
+            item.description().unwrap_or_default()
+        );
+        writeln!(file, "Published: {}", item.pub_date().unwrap_or_default());
+        writeln!(file, "\n");
     }
 
-    println!("End");
+    println!("End of ress reading");
     Ok(())
 }
