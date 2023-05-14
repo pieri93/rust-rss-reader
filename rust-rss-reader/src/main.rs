@@ -34,6 +34,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         writeln!(file, "\n");
     }
 
-    println!("End of ress reading");
+    println!("End of rss reading");
     Ok(())
 }
